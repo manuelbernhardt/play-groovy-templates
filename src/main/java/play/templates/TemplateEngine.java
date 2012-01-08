@@ -9,8 +9,6 @@ public abstract class TemplateEngine {
 
     static TemplateEngine engine;
 
-    protected abstract TemplateEngine initEngineImplementation();
-
     protected abstract TemplateUtils initUtilsImplementation();
 
     public TemplateEngine() {
@@ -22,7 +20,7 @@ public abstract class TemplateEngine {
      * Not sure if this is the best way but for the time being it works
      */
     public void startup() {
-        TemplateEngine.engine = initEngineImplementation();
+        TemplateEngine.engine = this;
         TemplateEngine.utils = initUtilsImplementation();
 
         GenericTemplateLoader.utils = utils;
