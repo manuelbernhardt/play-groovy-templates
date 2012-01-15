@@ -39,6 +39,8 @@ public abstract class TemplateEngine {
 
     public abstract File getPrecompiledTemplate(String name);
 
+    public abstract TemplateCompiler getTemplateCompiler();
+
     public abstract List<? extends PlayVirtualFile> getTemplatePaths();
 
     // ~~~ HTTP

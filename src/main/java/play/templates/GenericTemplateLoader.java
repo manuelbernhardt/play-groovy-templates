@@ -74,12 +74,12 @@ public class GenericTemplateLoader {
             if (template.loadFromCache()) {
                 templates.put(key, template);
             } else {
-                templates.put(key, new GroovyTemplateCompiler().compile(file));
+                templates.put(key, engine.getTemplateCompiler().compile(file));
             }
         } else {
             BaseTemplate template = templates.get(key);
             if (utils.isDevMode() && template.timestamp < file.lastModified()) {
-                templates.put(key, new GroovyTemplateCompiler().compile(file));
+                templates.put(key, engine.getTemplateCompiler().compile(file));
             }
         }
         if (templates.get(key) == null) {
@@ -100,12 +100,12 @@ public class GenericTemplateLoader {
             if (template.loadFromCache()) {
                 templates.put(key, template);
             } else {
-                templates.put(key, new GroovyTemplateCompiler().compile(template));
+                templates.put(key, engine.getTemplateCompiler().compile(template));
             }
         } else {
             BaseTemplate template = engine.createTemplate(key, source);
             if (utils.isDevMode()) {
-                templates.put(key, new GroovyTemplateCompiler().compile(template));
+                templates.put(key, engine.getTemplateCompiler().compile(template));
             }
         }
         if (templates.get(key) == null) {
@@ -133,7 +133,7 @@ public class GenericTemplateLoader {
      */
     public static BaseTemplate loadString(String source) {
         BaseTemplate template = engine.createTemplate(source);
-        return new GroovyTemplateCompiler().compile(template);
+        return engine.getTemplateCompiler().compile(template);
     }
 
     /**
