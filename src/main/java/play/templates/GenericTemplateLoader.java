@@ -209,6 +209,7 @@ public class GenericTemplateLoader {
                     utils.logError("Template %s does not compile at line %d", e.getTemplate().name, e.getLineNumber());
                     throw e;
                 }
+
                 templates.add(template);
             }
         } else if (current.isDirectory() && !current.getName().startsWith(".")) {

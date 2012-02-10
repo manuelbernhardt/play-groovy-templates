@@ -128,7 +128,7 @@ public abstract class GroovyTemplate extends BaseTemplate {
                     // Cache
                     TemplateEngine.engine.cacheBytecode(sb.toString().getBytes("utf-8"), name, source);
                     compiledTemplate = tClassLoader.loadClass(groovyClassesForThisTemplate.get(0).getName());
-                    if (System.getProperty("precompile") != null) {
+                    if (utils.usePrecompiled()) {
                         try {
                             // emit bytecode to standard class layout as well
                             File f = TemplateEngine.engine.getPrecompiledTemplate(name.replaceAll("\\{(.*)\\}", "from_$1").replace(":", "_").replace("..", "parent"));
