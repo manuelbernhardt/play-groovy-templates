@@ -59,7 +59,7 @@ public class GenericTemplateLoader {
     public static Template load(PlayVirtualFile file) {
         // Use default engine
         final String key = getUniqueNumberForTemplateFile(file.relativePath());
-        if (!templates.containsKey(key) || templates.get(key).compiledTemplate == null) {
+        if (!templates.containsKey(key) || templates.get(key) == null || templates.get(key).compiledTemplate == null) {
             if (utils.usePrecompiled()) {
                 BaseTemplate template = engine.createTemplate(file.relativePath().replaceAll("\\{(.*)\\}", "from_$1").replace(":", "_").replace("..", "parent"), file.contentAsString());
                 try {
