@@ -43,12 +43,6 @@ public abstract class TemplateEngine {
 
     public abstract List<? extends PlayVirtualFile> getTemplatePaths();
 
-    // ~~~ HTTP
-
-    // TODO this probably needs to go close to the template rendering call
-    public abstract String getCurrentResponseEncoding();
-    public abstract String getAuthenticityToken();
-
     // ~~~ routing
 
     public abstract Object handleActionInvocation(String controller, String name, Object param, boolean absoulte, GroovyTemplate.ExecutableTemplate template);

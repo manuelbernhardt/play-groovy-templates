@@ -232,8 +232,8 @@ public class JavaExtensions {
     public static String urlEncode(String entity) {
         try {
             String encoding = TemplateEngine.utils.getDefaultWebEncoding();
-            if (TemplateEngine.engine.getCurrentResponseEncoding() != null) {
-                encoding = TemplateEngine.engine.getCurrentResponseEncoding();
+            if (TemplateEngine.utils.getCurrentResponseEncoding() != null) {
+                encoding = TemplateEngine.utils.getCurrentResponseEncoding();
             }
             return URLEncoder.encode(entity, encoding);
         } catch (UnsupportedEncodingException e) {

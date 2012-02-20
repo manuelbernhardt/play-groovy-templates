@@ -18,6 +18,16 @@ import java.util.UUID;
  */
 public abstract class TemplateUtils {
 
+    // ~~~ Per-request stuff
+
+    public abstract String getLang();
+
+    public abstract String getMessage(Object key, Object... args);
+
+    public abstract String getCurrentResponseEncoding();
+
+    public abstract String getAuthenticityToken();
+
     // ~~~ Logger
 
     public abstract void logWarn(String message, Object... args);
@@ -29,7 +39,6 @@ public abstract class TemplateUtils {
     public abstract void logError(Throwable e, String message);
     
     public abstract void logTraceIfEnabled(String message, Object... args);
-
 
     // ~~~ Play
 
@@ -61,10 +70,6 @@ public abstract class TemplateUtils {
 
     public abstract Object deserialize(byte[] b) throws Exception;
 
-    public abstract String getLang();
-
-    public abstract String getMessage(Object key, Object... args);
-
     public abstract String getDateFormat();
 
     public abstract String getCurrencySymbol(String currencyCode);
@@ -73,10 +78,9 @@ public abstract class TemplateUtils {
 
     public abstract Integer parseDuration(String duration);
 
-    // doh...
+    // TODO for this one we might want to have some kind of Wrapper here
     public abstract Object getMessages();
 
-    // doh...
     public abstract Object getPlay();
 
     // ~~~ cache

@@ -185,7 +185,7 @@ public abstract class GroovyTemplate extends BaseTemplate {
         binding.setVariable("messages", utils.getMessages());
         binding.setVariable("lang", utils.getLang());
         // If current response-object is present, add _response_encoding'
-        String currentResponseEncoding = TemplateEngine.engine.getCurrentResponseEncoding();
+        String currentResponseEncoding = TemplateEngine.utils.getCurrentResponseEncoding();
         if (currentResponseEncoding != null) {
             binding.setVariable("_response_encoding", currentResponseEncoding);
         }

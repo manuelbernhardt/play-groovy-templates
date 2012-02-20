@@ -48,7 +48,7 @@ public class FastTags {
     }
 
     public static void _authenticityToken(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) {
-        out.println("<input type=\"hidden\" name=\"authenticityToken\" value=\"" + TemplateEngine.engine.getAuthenticityToken() + "\">");
+        out.println("<input type=\"hidden\" name=\"authenticityToken\" value=\"" + TemplateEngine.utils.getAuthenticityToken() + "\">");
     }
 
     public static void _option(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) {
