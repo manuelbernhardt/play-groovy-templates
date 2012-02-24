@@ -131,16 +131,16 @@ public abstract class TemplateCompiler {
         template.linesMatrix.put(currentLine, line);
     }
 
-    void println() {
+    protected void println() {
         compiledSource.append("\n");
         currentLine++;
     }
 
-    void print(String text) {
+    protected void print(String text) {
         compiledSource.append(text);
     }
 
-    void println(String text) {
+    protected void println(String text) {
         compiledSource.append(text);
         println();
     }

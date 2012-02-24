@@ -57,9 +57,9 @@ public abstract class BaseTemplate extends Template {
 
     abstract void directLoad(byte[] code) throws Exception;
 
-    abstract void handleException(TemplateEngineException e);
-    abstract void throwException(Throwable e);
-    abstract Throwable cleanStackTrace(Throwable e);
+    protected abstract void handleException(TemplateEngineException e);
+    protected abstract void throwException(Throwable e);
+    protected abstract Throwable cleanStackTrace(Throwable e);
     public static ThreadLocal<BaseTemplate> layout = new ThreadLocal<BaseTemplate>();
     public static ThreadLocal<Map<Object, Object>> layoutData = new ThreadLocal<Map<Object, Object>>();
     public static ThreadLocal<BaseTemplate> currentTemplate = new ThreadLocal<BaseTemplate>();
