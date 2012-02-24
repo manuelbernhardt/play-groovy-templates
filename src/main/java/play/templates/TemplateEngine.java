@@ -7,7 +7,7 @@ public abstract class TemplateEngine {
 
     public static TemplateUtils utils;
 
-    static TemplateEngine engine;
+    public static TemplateEngine engine;
 
     protected abstract TemplateUtils initUtilsImplementation();
 

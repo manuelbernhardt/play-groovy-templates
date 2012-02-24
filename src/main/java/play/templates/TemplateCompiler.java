@@ -24,8 +24,8 @@ public abstract class TemplateCompiler {
     }
 
     StringBuilder compiledSource = new StringBuilder();
-    BaseTemplate template;
-    TemplateParser parser;
+    protected BaseTemplate template;
+    protected TemplateParser parser;
     boolean doNextScan = true;
     TemplateParser.Token state;
     Stack<Tag> tagsStack = new Stack<Tag>();
@@ -120,13 +120,13 @@ public abstract class TemplateCompiler {
 
     abstract void message();
 
-    abstract void action(boolean absolute);
+    protected abstract void action(boolean absolute);
 
     abstract void startTag();
 
     abstract void endTag();
 
-    void markLine(int line) {
+    protected void markLine(int line) {
         compiledSource.append("// line ").append(line);
         template.linesMatrix.put(currentLine, line);
     }

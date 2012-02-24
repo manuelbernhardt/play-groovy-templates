@@ -217,7 +217,7 @@ public class GroovyTemplateCompiler extends TemplateCompiler {
     }
 
     @Override
-    void action(boolean absolute) {
+    protected void action(boolean absolute) {
         String action = parser.getToken().trim();
         if (action.trim().matches("^'.*'$")) {
             if (absolute) {

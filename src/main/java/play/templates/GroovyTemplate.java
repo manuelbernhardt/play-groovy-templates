@@ -265,7 +265,7 @@ public abstract class GroovyTemplate extends BaseTemplate {
         return null;
     }
 
-    Throwable cleanStackTrace(Throwable e) {
+    protected Throwable cleanStackTrace(Throwable e) {
         List<StackTraceElement> cleanTrace = new ArrayList<StackTraceElement>();
         for (StackTraceElement se : e.getStackTrace()) {
             //Here we are parsing the classname to find the file on disk the template was generated from.
