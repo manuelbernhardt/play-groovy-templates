@@ -3,9 +3,9 @@ import Keys._
 
 object ProjectBuild extends Build {
 
-  val buildVersion = "0.1-SNAPSHOT"
+  val buildVersion = "0.5"
 
-  val delvingReleases = "Delving Releases Repository" at "http://development.delving.org:8081/nexus/content/groups/public"
+  val delvingReleases = "Delving Releases Repository" at "http://development.delving.org:8081/nexus/content/repositories/releases"
   val delvingSnapshots = "Delving Snapshot Repository" at "http://development.delving.org:8081/nexus/content/repositories/snapshots"
   val delvingRepository = if (buildVersion.endsWith("SNAPSHOT")) delvingSnapshots else delvingReleases
 
