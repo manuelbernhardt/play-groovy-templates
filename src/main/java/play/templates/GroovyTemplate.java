@@ -182,10 +182,10 @@ public abstract class GroovyTemplate extends BaseTemplate {
         compile();
         Binding binding = new Binding(args);
         binding.setVariable("play", utils.getPlay());
-        binding.setVariable("messages", utils.getMessages());
-        binding.setVariable("lang", utils.getLang());
+        binding.setVariable("messages", utils.getMessages(args.get("lang").toString()));
+        binding.setVariable("lang", args.get("lang"));
         // If current response-object is present, add _response_encoding'
-        String currentResponseEncoding = TemplateEngine.utils.getCurrentResponseEncoding();
+        Object currentResponseEncoding = args.get("__RESPONSE_ENCODING");
         if (currentResponseEncoding != null) {
             binding.setVariable("_response_encoding", currentResponseEncoding);
         }
@@ -221,8 +221,10 @@ public abstract class GroovyTemplate extends BaseTemplate {
             monitor = null;
             utils.logTraceIfEnabled("%sms to render template %s", System.currentTimeMillis() - start, name);
         } catch (TemplateEngineException e) {
+            e.printStackTrace();
             handleException(e);
         } catch (DoBodyException e) {
+            e.printStackTrace();
             if (utils.isDevMode()) {
                 compiledTemplate = null;
                 TemplateEngine.engine.deleteBytecode(name);
@@ -230,6 +232,7 @@ public abstract class GroovyTemplate extends BaseTemplate {
             Exception ex = (Exception) e.getCause();
             throwException(ex);
         } catch (Throwable e) {
+            e.printStackTrace();
             if (utils.isDevMode()) {
                 compiledTemplate = null;
                 TemplateEngine.engine.deleteBytecode(name);
@@ -403,15 +406,16 @@ public abstract class GroovyTemplate extends BaseTemplate {
                         "that is resolved to null - " +
                         "have you forgotten quotes around the message-key?");
             }
+            String lang = (String) getBinding().getVariables().get("lang");
             if (val.length == 1) {
-                return TemplateEngine.utils.getMessage(val[0]);
+                return  TemplateEngine.utils.getMessage(lang, val[0]);
             } else {
                 // extract args from val
                 Object[] args = new Object[val.length-1];
                 for(int i = 1; i < val.length; i++) {
                     args[i - 1] = val[i];
                 }
-                return TemplateEngine.utils.getMessage(val[0], args);
+                return TemplateEngine.utils.getMessage(lang, val[0], args);
             }
         }
 

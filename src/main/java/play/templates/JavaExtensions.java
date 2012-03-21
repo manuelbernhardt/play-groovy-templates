@@ -149,18 +149,14 @@ public class JavaExtensions {
         return StringEscapeUtils.escapeXml(str);
     }
 
-    public static String format(Number number, String pattern) {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale(TemplateEngine.utils.getLang()));
+    public static String format(Number number, String pattern, String language) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale(language));
         return new DecimalFormat(pattern, symbols).format(number);
     }
 
     public static String format(Date date) {
         // Get the pattern from the configuration
         return new SimpleDateFormat(TemplateEngine.utils.getDateFormat()).format(date);
-    }
-
-    public static String format(Date date, String pattern) {
-        return format(date, pattern, TemplateEngine.utils.getLang());
     }
 
     public static String format(Date date, String pattern, String lang) {
@@ -177,44 +173,40 @@ public class JavaExtensions {
         return number.intValue() / pageSize + (number.intValue() % pageSize > 0 ? 1 : 0);
     }
 
-    public static String since(Date date) {
-        return since(date, false);
+    public static String since(Date date, String language) {
+        return since(date, false, language);
     }
 
-    public static String since(Date date, Boolean stopAtMonth) {
+    public static String since(Date date, Boolean stopAtMonth, String language) {
         Date now = new Date();
         if (now.before(date)) {
             return "";
         }
         long delta = (now.getTime() - date.getTime()) / 1000;
         if (delta < 60) {
-            return TemplateEngine.utils.getMessage("since.seconds", delta, pluralize(delta));
+            return TemplateEngine.utils.getMessage(language, "since.seconds", delta, pluralize(delta));
         }
         if (delta < 60 * 60) {
             long minutes = delta / 60;
-            return TemplateEngine.utils.getMessage("since.minutes", minutes, pluralize(minutes));
+            return TemplateEngine.utils.getMessage(language, "since.minutes", minutes, pluralize(minutes));
         }
         if (delta < 24 * 60 * 60) {
             long hours = delta / (60 * 60);
-            return TemplateEngine.utils.getMessage("since.hours", hours, pluralize(hours));
+            return TemplateEngine.utils.getMessage(language, "since.hours", hours, pluralize(hours));
         }
         if (delta < 30 * 24 * 60 * 60) {
             long days = delta / (24 * 60 * 60);
-            return TemplateEngine.utils.getMessage("since.days", days, pluralize(days));
+            return TemplateEngine.utils.getMessage(language, "since.days", days, pluralize(days));
         }
         if (stopAtMonth) {
-            return asdate(date.getTime(), TemplateEngine.utils.getMessage("since.format"));
+            return asdate(date.getTime(), TemplateEngine.utils.getMessage(language, "since.format"), language);
         }
         if (delta < 365 * 24 * 60 * 60) {
             long months = delta / (30 * 24 * 60 * 60);
-            return TemplateEngine.utils.getMessage("since.months", months, pluralize(months));
+            return TemplateEngine.utils.getMessage(language, "since.months", months, pluralize(months));
         }
         long years = delta / (365 * 24 * 60 * 60);
-        return TemplateEngine.utils.getMessage("since.years", years, pluralize(years));
-    }
-
-    public static String asdate(Long timestamp, String pattern) {
-        return asdate(timestamp, pattern, TemplateEngine.utils.getLang());
+        return TemplateEngine.utils.getMessage(language, "since.years", years, pluralize(years));
     }
 
     public static String asdate(Long timestamp, String pattern, String lang) {
@@ -229,13 +221,13 @@ public class JavaExtensions {
         return new RawData(data.toString().replace("\n", "<br/>"));
     }
 
-    public static String urlEncode(String entity) {
+    public static String urlEncode(String entity, String encoding) {
         try {
-            String encoding = TemplateEngine.utils.getDefaultWebEncoding();
-            if (TemplateEngine.utils.getCurrentResponseEncoding() != null) {
-                encoding = TemplateEngine.utils.getCurrentResponseEncoding();
+            String defaultEncoding = TemplateEngine.utils.getDefaultWebEncoding();
+            if (encoding != null) {
+                defaultEncoding = encoding;
             }
-            return URLEncoder.encode(entity, encoding);
+            return URLEncoder.encode(entity, defaultEncoding);
         } catch (UnsupportedEncodingException e) {
             TemplateEngine.utils.logError(e, entity);
         }
@@ -255,9 +247,9 @@ public class JavaExtensions {
         return bytes / 1073741824L + "GB";
     }
 
-    public static String formatCurrency(Number number, String currencyCode) {
+    public static String formatCurrency(Number number, String currencyCode, String language) {
         Currency currency = Currency.getInstance(currencyCode);
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale(TemplateEngine.utils.getLang()));
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale(language));
         numberFormat.setCurrency(currency);
         numberFormat.setMaximumFractionDigits(currency.getDefaultFractionDigits());
         String s = numberFormat.format(number);

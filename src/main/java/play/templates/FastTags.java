@@ -48,7 +48,11 @@ public class FastTags {
     }
 
     public static void _authenticityToken(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) {
-        out.println("<input type=\"hidden\" name=\"authenticityToken\" value=\"" + TemplateEngine.utils.getAuthenticityToken() + "\">");
+        Object authToken = template.getBinding().getVariables().get("__AUTH_TOKEN");
+        if(authToken == null) {
+            TemplateEngine.utils.logWarn("Called #{authenticityToken} but no __AUTH_TOKEN was found in the template render arguments");
+        }
+        out.println("<input type=\"hidden\" name=\"authenticityToken\" value=\"" + authToken + "\">");
     }
 
     public static void _option(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) {

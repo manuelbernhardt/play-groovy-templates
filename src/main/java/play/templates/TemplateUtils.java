@@ -18,16 +18,6 @@ import java.util.UUID;
  */
 public abstract class TemplateUtils {
 
-    // ~~~ Per-request stuff
-
-    public abstract String getLang();
-
-    public abstract String getMessage(Object key, Object... args);
-
-    public abstract String getCurrentResponseEncoding();
-
-    public abstract String getAuthenticityToken();
-
     // ~~~ Logger
 
     public abstract void logWarn(String message, Object... args);
@@ -79,7 +69,9 @@ public abstract class TemplateUtils {
     public abstract Integer parseDuration(String duration);
 
     // TODO for this one we might want to have some kind of Wrapper here
-    public abstract Object getMessages();
+    public abstract Object getMessages(String language);
+
+    public abstract String getMessage(String language, Object key, Object... args);
 
     public abstract Object getPlay();
 
