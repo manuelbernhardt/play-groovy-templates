@@ -44,8 +44,6 @@ public abstract class TemplateUtils {
 
     public abstract PlayVirtualFile findFileWithPath(String path);
 
-    public abstract List<PlayVirtualFile> list(PlayVirtualFile parent);
-
     // ~~~ libs
 
     public abstract String encodeBASE64(byte[] value);

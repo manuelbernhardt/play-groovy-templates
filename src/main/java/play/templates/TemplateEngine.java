@@ -41,8 +41,6 @@ public abstract class TemplateEngine {
 
     public abstract TemplateCompiler getTemplateCompiler();
 
-    public abstract List<? extends PlayVirtualFile> getTemplatePaths();
-
     // ~~~ routing
 
     public abstract Object handleActionInvocation(String controller, String name, Object param, boolean absoulte, GroovyTemplate.ExecutableTemplate template);

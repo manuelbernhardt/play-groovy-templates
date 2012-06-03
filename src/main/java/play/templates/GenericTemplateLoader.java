@@ -184,38 +184,4 @@ public class GenericTemplateLoader {
         return template;
     }
 
-    /**
-     * List all found templates
-     * @return A list of executable templates
-     */
-    public static List<Template> getAllTemplate() {
-        List<Template> res = new ArrayList<Template>();
-        for (PlayVirtualFile virtualFile : engine.getTemplatePaths()) {
-            scan(res, virtualFile);
-        }
-        engine.compileGroovyRoutes();
-        return res;
-    }
-
-    private static void scan(List<Template> templates, PlayVirtualFile current) {
-        if (!current.isDirectory() && !current.getName().startsWith(".") && !current.getName().endsWith(".scala.html")) {
-            long start = System.currentTimeMillis();
-            Template template = load(current);
-            if (template != null) {
-                try {
-                    template.compile();
-                    utils.logTraceIfEnabled("%sms to load %s", System.currentTimeMillis() - start, current.getName());
-                } catch (TemplateCompilationException e) {
-                    utils.logError("Template %s does not compile at line %d", e.getTemplate().name, e.getLineNumber());
-                    throw e;
-                }
-
-                templates.add(template);
-            }
-        } else if (current.isDirectory() && !current.getName().startsWith(".")) {
-            for (PlayVirtualFile virtualFile : utils.list(current)) {
-                scan(templates, virtualFile);
-            }
-        }
-    }
 }
