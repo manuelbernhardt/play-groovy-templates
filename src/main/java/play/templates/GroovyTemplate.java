@@ -323,7 +323,7 @@ public abstract class GroovyTemplate extends BaseTemplate {
         public void invokeTag(Integer fromLine, String tag, Map<String, Object> attrs, Closure body) {
             String templateName = tag.replace(".", "/");
             String callerExtension = "tag";
-            if (template.name.indexOf(".") > 0) {
+            if (template.name.contains(".")) {
                 callerExtension = template.name.substring(template.name.lastIndexOf(".") + 1);
             }
             BaseTemplate tagTemplate = null;
