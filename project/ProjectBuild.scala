@@ -24,8 +24,7 @@ object ProjectBuild extends Build {
     libraryDependencies ++= Seq(
       "org.codehaus.groovy"       % "groovy-all"          % "2.0.0",
       "commons-collections"       % "commons-collections" % "3.2.1",
-      "commons-lang"              % "commons-lang"        % "2.6",
-      "com.jamonapi"              % "jamon"               % "2.7"
+      "commons-lang"              % "commons-lang"        % "2.6"
     ),
 
     publishTo := Some(delvingRepository),

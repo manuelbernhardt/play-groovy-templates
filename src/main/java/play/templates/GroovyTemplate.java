@@ -12,8 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.jamonapi.Monitor;
-import com.jamonapi.MonitorFactory;
 import groovy.lang.Binding;
 import groovy.lang.Closure;
 import groovy.lang.GroovyClassLoader;
@@ -212,13 +210,9 @@ public abstract class GroovyTemplate extends BaseTemplate {
         }
         ExecutableTemplate t = (ExecutableTemplate) InvokerHelper.createScript(compiledTemplate, binding);
         t.template = this;
-        Monitor monitor = null;
         try {
-            monitor = MonitorFactory.start(name);
             long start = System.currentTimeMillis();
             t.run();
-            monitor.stop();
-            monitor = null;
             utils.logTraceIfEnabled("%sms to render template %s", System.currentTimeMillis() - start, name);
         } catch (TemplateEngineException e) {
             e.printStackTrace();
@@ -238,10 +232,6 @@ public abstract class GroovyTemplate extends BaseTemplate {
                 TemplateEngine.engine.deleteBytecode(name);
             }
             throwException(e);
-        } finally {
-            if (monitor != null) {
-                monitor.stop();
-            }
         }
         if (applyLayouts && layout.get() != null) {
             Map<String, Object> layoutArgs = new HashMap<String, Object>(args);
