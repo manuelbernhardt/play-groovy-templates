@@ -3,18 +3,18 @@ import Keys._
 
 object ProjectBuild extends Build {
 
-  val buildVersion = "0.7.5"
+  val buildVersion = "0.8.0"
 
-  val delvingReleases = "Delving Releases Repository" at "http://development.delving.org:8081/nexus/content/repositories/releases"
-  val delvingSnapshots = "Delving Snapshot Repository" at "http://development.delving.org:8081/nexus/content/repositories/snapshots"
-  val delvingRepository = if (buildVersion.endsWith("SNAPSHOT")) delvingSnapshots else delvingReleases
+  val releases = "Sonatype OSS Releases Repository" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+  val snapshots = "Sonatype OSS Snapshot Repository" at "https://oss.sonatype.org/content/repositories/snapshots"
+  val publicationRepository = if(buildVersion.endsWith("SNAPSHOT")) snapshots else releases
 
   lazy val root = Project(
     id = "groovy-templates-engine",
     base = file(".")
   ).settings(
 
-    organization := "eu.delving",
+    organization := "io.bernhardt",
 
     version := buildVersion,
 
@@ -27,7 +27,7 @@ object ProjectBuild extends Build {
       "commons-lang"              % "commons-lang"        % "2.6"
     ),
 
-    publishTo := Some(delvingRepository),
+    publishTo := Some(publicationRepository),
 
     credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
 

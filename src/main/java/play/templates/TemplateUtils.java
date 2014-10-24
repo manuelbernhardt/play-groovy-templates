@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Abstracted utility methods for interoperability between Play 1 & Play 2.
+ * Abstracted utility methods for interoperability between Play 1 and Play 2.
  * 
  * This is based on Play 1 so let's see how the implementation in Play 2 goes...
  * 
